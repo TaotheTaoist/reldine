@@ -488,155 +488,6 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                   ),
                 ),
                 child: InkWell(
-                  // onTap: () async {
-                  //   if (authenticationcontroller.profileImage != null) {
-                  //     if (nameTextEditingController.text.trim().isNotEmpty &&
-                  //         emailTextEditingController.text.trim().isNotEmpty &&
-                  //         passwordlTextEditingController.text
-                  //             .trim()
-                  //             .isNotEmpty &&
-                  //         ageTextEditingController.text.trim().isNotEmpty &&
-                  //         phoneNoTextEditingController.text.trim().isNotEmpty &&
-                  //         cityTextEditingController.text.trim().isNotEmpty &&
-                  //         countryTextEditingController.text.trim().isNotEmpty &&
-                  //         profileHeadingTextEditingController.text
-                  //             .trim()
-                  //             .isNotEmpty &&
-                  //         lookingForInaPartnerTextEditingController.text
-                  //             .trim()
-                  //             .isNotEmpty &&
-                  //         heightTextEditingController.text.trim().isNotEmpty &&
-                  //         weighteTextEditingController.text.trim().isNotEmpty &&
-                  //         bodyTypeForInaPartnerTextEditingController.text
-                  //             .trim()
-                  //             .isNotEmpty &&
-                  //         drinkTextEditingController.text.trim().isNotEmpty &&
-                  //         smokeTextEditingController.text.trim().isNotEmpty &&
-                  //         martialStatusTextEditingController.text
-                  //             .trim()
-                  //             .isNotEmpty &&
-                  //         haveChildrenTextEditingController.text
-                  //             .trim()
-                  //             .isNotEmpty &&
-                  //         noOfChildrenNoTextEditingController.text
-                  //             .trim()
-                  //             .isNotEmpty &&
-                  //         professionTextEditingController.text
-                  //             .trim()
-                  //             .isNotEmpty &&
-                  //         employmentStatusTextEditingController.text
-                  //             .trim()
-                  //             .isNotEmpty &&
-                  //         incomeTextEditingController.text.trim().isNotEmpty &&
-                  //         livingSituationTextEditingController.text
-                  //             .trim()
-                  //             .isNotEmpty &&
-                  //         willingtoRelocateTextEditingController.text
-                  //             .trim()
-                  //             .isNotEmpty &&
-                  //         relationshipYouAreLookingForTextEditingController.text
-                  //             .trim()
-                  //             .isNotEmpty &&
-                  //         nationalityTextEditingController.text
-                  //             .trim()
-                  //             .isNotEmpty &&
-                  //         educationTextEditingController.text
-                  //             .trim()
-                  //             .isNotEmpty &&
-                  //         lanaguageStatusTextEditingController.text
-                  //             .trim()
-                  //             .isNotEmpty &&
-                  //         religionTextEditingController.text
-                  //             .trim()
-                  //             .isNotEmpty &&
-                  //         ethnicityChildrenNoTextEditingController.text
-                  //             .trim()
-                  //             .isNotEmpty) {
-                  //       // All fields are filled, proceed to create new user
-                  //       setState(() {
-                  //         showProgressBar = true;
-                  //       });
-
-                  //       try {
-                  //         await authenticationcontroller.creatNewUserAccount(
-                  //           authenticationcontroller
-                  //               .profileImage!, // Image file
-                  //           emailTextEditingController.text.trim(), // Email
-                  //           passwordlTextEditingController.text
-                  //               .trim(), // Password
-                  //           nameTextEditingController.text.trim(), // Name
-                  //           ageTextEditingController.text.trim(), // Age
-                  //           phoneNoTextEditingController.text
-                  //               .trim(), // Phone number
-                  //           cityTextEditingController.text.trim(), // City
-                  //           countryTextEditingController.text.trim(), // Country
-                  //           profileHeadingTextEditingController.text
-                  //               .trim(), // Profile Heading
-                  //           lookingForInaPartnerTextEditingController.text
-                  //               .trim(), // Looking for in a Partner
-                  //           DateTime.now()
-                  //               .millisecondsSinceEpoch, // Published date and time as an int
-                  //           heightTextEditingController.text.trim(), // Height
-                  //           weighteTextEditingController.text.trim(), // Weight
-                  //           bodyTypeForInaPartnerTextEditingController.text
-                  //               .trim(), // Body Type
-                  //           drinkTextEditingController.text.trim(), // Drink
-                  //           smokeTextEditingController.text.trim(), // Smoke
-                  //           martialStatusTextEditingController.text
-                  //               .trim(), // Marital Status
-                  //           haveChildrenTextEditingController.text
-                  //               .trim(), // Have children
-                  //           noOfChildrenNoTextEditingController.text
-                  //               .trim(), // Number of children
-                  //           professionTextEditingController.text
-                  //               .trim(), // Profession
-                  //           employmentStatusTextEditingController.text
-                  //               .trim(), // Employment status
-                  //           incomeTextEditingController.text.trim(), // Income
-                  //           livingSituationTextEditingController.text
-                  //               .trim(), // Living situation
-                  //           willingtoRelocateTextEditingController.text
-                  //               .trim(), // Willing to relocate
-                  //           relationshipYouAreLookingForTextEditingController
-                  //               .text
-                  //               .trim(), // Relationship you're looking for
-                  //           nationalityTextEditingController.text
-                  //               .trim(), // Nationality
-                  //           educationTextEditingController.text
-                  //               .trim(), // Education
-                  //           lanaguageStatusTextEditingController.text
-                  //               .trim(), // Language
-                  //           religionTextEditingController.text
-                  //               .trim(), // Religion
-                  //           ethnicityChildrenNoTextEditingController.text
-                  //               .trim(), // Ethnicity
-                  //         );
-
-                  //         // On success, hide progress bar
-                  //         setState(() {
-                  //           showProgressBar = false;
-                  //           Get.to(HomeScreen(
-                  //               userName:
-                  //                   nameTextEditingController.text.trim()));
-                  //         });
-
-                  //         // Show success message (e.g., navigation to a new screen or Snackbar)
-                  //         Get.snackbar(
-                  //             "Success", "Account created successfully");
-                  //       } catch (e) {
-                  //         // Handle the error (e.g., display error message)
-                  //         setState(() {
-                  //           showProgressBar = false;
-                  //         });
-                  //         Get.snackbar("Error", "Failed to create account: $e");
-                  //       }
-                  //     } else {
-                  //       Get.snackbar("Error", "Please fill in all the fields");
-                  //     }
-                  //   } else {
-                  //     Get.snackbar("Error", "Please select a profile image");
-                  //   }
-                  // },
                   onTap: () async {
                     if (authenticationcontroller.profileImage != null) {
                       String missingFields =
@@ -827,8 +678,9 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                           setState(() {
                             showProgressBar = false;
                             Get.to(HomeScreen(
-                                userName:
-                                    nameTextEditingController.text.trim()));
+                                // userName:
+                                //     nameTextEditingController.text.trim()
+                                ));
                           });
 
                           // Show success message (e.g., navigation to a new screen or Snackbar)
@@ -839,6 +691,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                           setState(() {
                             showProgressBar = false;
                           });
+
                           Get.snackbar("Error", "Failed to create account: $e");
                         }
                       }
@@ -846,7 +699,6 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                       Get.snackbar("Error", "Please select a profile image");
                     }
                   },
-
                   child: const Center(
                     child: Text(
                       "Register",
@@ -858,6 +710,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                   ),
                 ),
               ),
+              SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
