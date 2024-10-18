@@ -55,6 +55,7 @@ dependencies:
   firebase_messaging: ^15.1.3 # Update to the latest version
   cloud_firestore: ^5.4.4 # Ensure this version is compatible with firebase_core
   cupertino_icons: ^1.0.6 # This version supports null safety
+  flutter_image_slider:
   
 
 dev_dependencies:

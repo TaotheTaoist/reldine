@@ -415,6 +415,9 @@
 //     );
 //   }
 // }
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:datingapp/global.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:datingapp/controller/profile-controller.dart';
@@ -427,7 +430,26 @@ class SwippingScreen extends StatefulWidget {
 }
 
 class _SwippingScreenState extends State<SwippingScreen> {
+  String senderName = "";
+  readUserData() async {
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc(currentUserID)
+        .get()
+        .then((dataSnapshot) {
+      setState(() {
+        senderName = dataSnapshot.data()!["name"].toString();
+      });
+    });
+  }
+
   Profilecontroller profileController = Get.put(Profilecontroller());
+
+  @override
+  void initState() {
+    readUserData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -579,6 +601,10 @@ class _SwippingScreenState extends State<SwippingScreen> {
                             children: [
                               ElevatedButton(
                                 onPressed: () {
+                                  profileController.favoriteSentReceieved(
+                                    eachProfileInfo.uid.toString(),
+                                    senderName,
+                                  );
                                   // Action for the favorite icon
                                   print('Favorite icon tapped!');
                                 },
@@ -593,7 +619,7 @@ class _SwippingScreenState extends State<SwippingScreen> {
                                       Colors.transparent, // Remove shadow
                                 ),
                                 child: Icon(
-                                  Icons.favorite,
+                                  Icons.heat_pump_rounded,
                                   color: Colors.red,
                                   size: 30,
                                 ),
@@ -601,8 +627,11 @@ class _SwippingScreenState extends State<SwippingScreen> {
                               SizedBox(width: 10),
                               ElevatedButton(
                                 onPressed: () {
-                                  // Action for the chat icon
-                                  print('Chat icon tapped!');
+                                  profileController.LikeSentReceieved(
+                                    eachProfileInfo.uid.toString(),
+                                    senderName,
+                                  );
+                                  print('fav icon tapped!');
                                 },
                                 style: ElevatedButton.styleFrom(
                                   shape: CircleBorder(),
@@ -611,7 +640,7 @@ class _SwippingScreenState extends State<SwippingScreen> {
                                   shadowColor: Colors.transparent,
                                 ),
                                 child: Icon(
-                                  Icons.chat,
+                                  Icons.favorite,
                                   color: Colors.red,
                                   size: 30,
                                 ),

@@ -115,6 +115,8 @@ import 'package:datingapp/tabScreens/like_sent_like_recieved_screen.dart';
 import 'package:datingapp/tabScreens/swipping_screen.dart';
 import 'package:datingapp/tabScreens/user_details_screen.dart';
 import 'package:datingapp/tabScreens/view_sent_view_received_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -131,9 +133,11 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> tabScreensList = [
     SwippingScreen(),
     ViewSentViewReceivedScreen(),
-    FavoriteSentReceievedScreen(),
+    FavoriteSentReceivedScreen(),
     LikeSentLikeRecievedScreen(),
-    UserDetailsScreen(),
+    UserDetailsScreen(
+      userID: FirebaseAuth.instance.currentUser!.uid,
+    ),
   ];
 
   @override
