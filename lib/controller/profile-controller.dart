@@ -125,6 +125,58 @@ class Profilecontroller extends GetxController {
   }
 
 // ================================================================================
+
+  //version1 it deletes if click twice
+  // LikeSentReceieved(String toUserID, String senderName) async {
+  //   var document = await FirebaseFirestore.instance
+  //       .collection("users")
+  //       .doc(toUserID)
+  //       .collection("LikeReceived")
+  //       .doc(currentUserID)
+  //       .get();
+
+  //   // If the user has already liked, remove the like
+  //   if (document.exists) {
+  //     // Remove the like from `LikeReceived` of the target user
+  //     await FirebaseFirestore.instance
+  //         .collection("users")
+  //         .doc(toUserID)
+  //         .collection("LikeReceived")
+  //         .doc(currentUserID)
+  //         .delete();
+
+  //     // Remove the like from `LikeSent` of the current user
+  //     await FirebaseFirestore.instance
+  //         .collection("users")
+  //         .doc(currentUserID)
+  //         .collection("LikeSent")
+  //         .doc(toUserID)
+  //         .delete();
+  //   } else {
+  //     // Add like to the target user's `LikeReceived`
+  //     await FirebaseFirestore.instance
+  //         .collection("users")
+  //         .doc(toUserID)
+  //         .collection("LikeReceived")
+  //         .doc(currentUserID)
+  //         .set({
+  //       'senderName': senderName,
+  //       'timestamp': FieldValue.serverTimestamp(),
+  //     });
+
+  //     // Add like to the current user's `LikeSent`
+  //     await FirebaseFirestore.instance
+  //         .collection("users")
+  //         .doc(currentUserID)
+  //         .collection("LikeSent")
+  //         .doc(toUserID)
+  //         .set({
+  //       'senderName': senderName,
+  //       'timestamp': FieldValue.serverTimestamp(),
+  //     });
+  //   }
+  // }
+
   LikeSentReceieved(String toUserID, String senderName) async {
     var document = await FirebaseFirestore.instance
         .collection("users")
@@ -133,24 +185,8 @@ class Profilecontroller extends GetxController {
         .doc(currentUserID)
         .get();
 
-    // If the user has already liked, remove the like
-    if (document.exists) {
-      // Remove the like from `LikeReceived` of the target user
-      await FirebaseFirestore.instance
-          .collection("users")
-          .doc(toUserID)
-          .collection("LikeReceived")
-          .doc(currentUserID)
-          .delete();
-
-      // Remove the like from `LikeSent` of the current user
-      await FirebaseFirestore.instance
-          .collection("users")
-          .doc(currentUserID)
-          .collection("LikeSent")
-          .doc(toUserID)
-          .delete();
-    } else {
+    // If the like does not exist, add it
+    if (!document.exists) {
       // Add like to the target user's `LikeReceived`
       await FirebaseFirestore.instance
           .collection("users")
@@ -173,5 +209,6 @@ class Profilecontroller extends GetxController {
         'timestamp': FieldValue.serverTimestamp(),
       });
     }
+    // If the like already exists, do nothing (or provide feedback if desired)
   }
 }

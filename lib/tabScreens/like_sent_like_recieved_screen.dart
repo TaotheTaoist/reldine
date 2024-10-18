@@ -22,14 +22,21 @@ class _LikeSentLikeRecievedScreen extends State<LikeSentLikeRecievedScreen> {
       likesSentList.clear();
       likesReceivedList.clear();
       mutualLikesList.clear();
-      print("Fetching mutual likes list.");
+      print("Fetching mutual likes list for user: $currentUserID");
 
       // Fetch sent likes documents
       var likesSentDocument = await FirebaseFirestore.instance
           .collection("users")
           .doc(currentUserID.toString())
-          .collection("likesSent")
+          .collection("LikeSent")
           .get();
+
+      print(
+          "Likes Sent Fetch Result: ${likesSentDocument.docs.length} documents");
+
+      if (likesSentDocument.docs.isEmpty) {
+        print("No sent likes found for user: $currentUserID");
+      }
 
       // Populate the likesSentList
       for (var doc in likesSentDocument.docs) {
@@ -40,8 +47,15 @@ class _LikeSentLikeRecievedScreen extends State<LikeSentLikeRecievedScreen> {
       var likesReceivedDocument = await FirebaseFirestore.instance
           .collection("users")
           .doc(currentUserID.toString())
-          .collection("likesReceived")
+          .collection("LikeReceived")
           .get();
+
+      print(
+          "Likes Received Fetch Result: ${likesReceivedDocument.docs.length} documents");
+
+      if (likesReceivedDocument.docs.isEmpty) {
+        print("No received likes found for user: $currentUserID");
+      }
 
       // Populate the likesReceivedList
       for (var doc in likesReceivedDocument.docs) {
@@ -57,6 +71,10 @@ class _LikeSentLikeRecievedScreen extends State<LikeSentLikeRecievedScreen> {
           .toList();
 
       print("Mutual Likes IDs: $mutualLikesIDs");
+
+      if (mutualLikesIDs.isEmpty) {
+        print("No mutual likes found.");
+      }
 
       // Fetch user data for mutual likes
       await getUsersFromLikes(mutualLikesIDs);
@@ -104,47 +122,15 @@ class _LikeSentLikeRecievedScreen extends State<LikeSentLikeRecievedScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextButton(
-                onPressed: () {
-                  setState(() {
-                    isLikesSentClick = true;
-                  });
-                  getMutualLikesList();
-                },
-                child: Text(
-                  "Sent Likes",
-                  style: TextStyle(
-                    color: isLikesSentClick ? Colors.white : Colors.grey,
-                    fontWeight:
-                        isLikesSentClick ? FontWeight.bold : FontWeight.normal,
-                    fontSize: 14,
-                  ),
-                )),
-            const Text("   |   ",
-                style: TextStyle(
-                  color: Colors.grey,
-                )),
-            TextButton(
-                onPressed: () {
-                  setState(() {
-                    isLikesSentClick = false;
-                  });
-                  getMutualLikesList();
-                },
-                child: Text(
-                  "Received Likes",
-                  style: TextStyle(
-                    color: isLikesSentClick ? Colors.grey : Colors.white,
-                    fontWeight:
-                        isLikesSentClick ? FontWeight.normal : FontWeight.bold,
-                    fontSize: 14,
-                  ),
-                ))
-          ],
+        title: Text(
+          "Matched",
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
         ),
+        centerTitle: true, // Center the title text
       ),
       body: mutualLikesList.isEmpty
           ? Center(
@@ -156,22 +142,23 @@ class _LikeSentLikeRecievedScreen extends State<LikeSentLikeRecievedScreen> {
               padding: const EdgeInsets.all(8),
               children: List.generate(mutualLikesList.length, (Index) {
                 return GridTile(
-                    child: Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: Card(
-                    color: Colors.blue.shade200,
-                    child: GestureDetector(
-                      onTap: () {
-                        // Handle tap actions, like navigating to user's profile
-                      },
-                      child: DecoratedBox(
+                  child: Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Card(
+                      color: Colors.blue.shade200,
+                      child: GestureDetector(
+                        onTap: () {
+                          // Handle tap actions, like navigating to user's profile
+                        },
+                        child: DecoratedBox(
                           decoration: BoxDecoration(
-                              image: DecorationImage(
-                            image: NetworkImage(
-                              mutualLikesList[Index]["imageProfile"],
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                mutualLikesList[Index]["imageProfile"],
+                              ),
+                              fit: BoxFit.cover,
                             ),
-                            fit: BoxFit.cover,
-                          )),
+                          ),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Center(
@@ -183,21 +170,25 @@ class _LikeSentLikeRecievedScreen extends State<LikeSentLikeRecievedScreen> {
                                         mutualLikesList[Index]["age"]
                                             .toString(),
                                     style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                   const SizedBox(
                                     height: 4,
-                                  )
+                                  ),
                                 ],
                               ),
                             ),
-                          )),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ));
-              })),
+                );
+              }),
+            ),
     );
   }
 }
